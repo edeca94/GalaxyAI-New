@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Consenti di accedere a tutti i file e le directory esistenti
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Reindirizza tutte le richieste a index.php
+RewriteRule ^ index.php [QSA,L]
+
+# Negare l'accesso ai file nascosti e ai file sensibili
+RewriteCond %{SCRIPT_FILENAME} -d [OR]
+RewriteCond %{SCRIPT_FILENAME} -f
+RewriteRule "(^|/)\." - [F]

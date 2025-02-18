@@ -1,0 +1,5 @@
+# Disattiva l'accesso a tutto tranne la directory 'public'
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^/Empirer/
+RewriteCond %{REQUEST_URI} !^public/
+RewriteRule ^(.*)$ public/$1 [L]

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?php echo $title; ?></title>
+    <link rel="stylesheet" type="text/css" href="/public/css/ogame-style.css">
+    <!-- Includi CSS specifico per la pagina -->
+    <?php if (file_exists("public/css/{$controllerName}/{$methodName}.css")): ?>
+        <link rel="stylesheet" type="text/css" href="/public/css/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.css">
+    <?php endif; ?>
+    <!-- Includi JS specifico per la pagina -->
+    <?php if (file_exists("public/js/{$controllerName}/{$methodName}.js")): ?>
+        <script src="/public/js/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.js"></script>
+    <?php endif; ?>
+</head>
+<body>
+    <div class="leftmenu">
+        <ul>
+            <li><a href="/vinyl">Vinyls</a></li>
+            <li><a href="/books">Books</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <?php echo $content; ?>
+    </div>
+</body>
+</html>

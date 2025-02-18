@@ -1,0 +1,1 @@
+Ciao, genera un software engineer, architect e devolper che mi aiuterà nello sviluppo di un progetto in PHP/Ajax/MySQL. Il motore principale lo trovi nei file che ti ho fornito come base, ovviamente ne ho diversi altri ma questi dovrebbero già farti avere un'idea. Il progetto è un gioco che prenda ispirazione (ma migliorato) da OGame

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $title; ?></title>
+    <link rel="stylesheet" type="text/css" href="/public/css/ogame-style.css">
+    <link rel="stylesheet" href="/public/css/ogame-style.css">
+    <?php if (file_exists("public/css/{$controllerName}/{$methodName}.css")): ?>
+        <link rel="stylesheet" type="text/css" href="/public/css/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.css">
+    <?php endif; ?>
+    <?php if (file_exists("public/js/{$controllerName}/{$methodName}.js")): ?>
+        <script src="/public/js/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.js"></script>
+    <?php endif; ?>
+</head>
+<body>
+    <div id="top-bar">
+        <ul>
+            <li><a href="#">Forum</a></li>
+            <li><a href="#">Supporto</a></li>
+            <li><a href="#">Notizie</a></li>
+            <li><a href="#">Regolamento</a></li>
+        </ul>
+    </div>
+
+    <div id="wrapper">
+        <div id="header">
+            <div class="logo">OGame</div>
+            <div class="resources">
+                <div class="resource">
+                    <img src="/public/resources/metal.png" alt="Metallo">
+                    <div class="resource-text">
+                        <span class="resource-name">Metallo</span>
+                        <span class="resource-value">10.000.000.000.000</span>
+                    </div>
+                </div>
+                <div class="resource">
+                    <img src="/public/resources/crystal.png" alt="Cristallo">
+                    <div class="resource-text">
+                        <span class="resource-name">Cristallo</span>
+                        <span class="resource-value">10.000.000.000.000</span>
+                    </div>
+                </div>
+                <div class="resource">
+                    <img src="/public/resources/deuterium.png" alt="Deuterio">
+                    <div class="resource-text">
+                        <span class="resource-name">Deuterio</span>
+                        <span class="resource-value">10.000.000.000.000</span>
+                    </div>
+                </div>
+                <div class="resource">
+                    <img src="/public/resources/energy.png" alt="Energia">
+                    <div class="resource-text">
+                        <span class="resource-name">Energia</span>
+                        <span class="resource-value">10.000.000.000.000</span>
+                    </div>
+                </div>
+                <div class="resource">
+                    <img src="/public/resources/darkmatter.png" alt="Materia Oscura">
+                    <div class="resource-text">
+                        <span class="resource-name">Materia Oscura</span>
+                        <span class="resource-value">10.000.000.000.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="events-messages">
+            <div class="events">Eventi</div>
+            <div class="messages">Messaggi</div>
+        </div>
+
+        <div id="container">
+            <div id="nav">
+                <ul>
+                    <li><a href="#">Panoramica</a></li>
+                    <li><a href="#">Edifici</a></li>
+                    <li><a href="#">Ricerca</a></li>
+                    <li><a href="#">Cantiere navale</a></li>
+                    <li><a href="#">Flotta</a></li>
+                    <li><a href="#">Difese</a></li>
+                    <li><a href="#">Risorse
+                        <button class="overlay-btn">
+                            <img src="gestione_risorse.png" alt="Gestione Risorse">
+                        </button>
+                    </a></li>
+                    <li><a href="#">Commercio</a></li>
+                    <li><a href="#">Tecnologie</a></li>
+                    <li><a href="#">Statistiche</a></li>
+                    <li><a href="#">Galassia</a></li>
+                    <li><a href="#">Alleanza</a></li>
+                </ul>
+            </div>
+
+            <div id="main-content">
+                <?php echo $content; ?>
+            </div>
+        </div>
+
+        <div id="footer">
+            <p>&copy; 2024 OGame Style Interface</p>
+        </div>
+    </div>
+
+    <div id="bottom-bar">
+        <ul>
+            <li><a href="#">Impostazioni</a></li>
+            <li><a href="#">Logout</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Termini e condizioni</a></li>
+        </ul>
+    </div>
+</body>
+</html>
