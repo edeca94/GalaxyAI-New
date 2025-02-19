@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGame Clone - Riepilogo</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+#master-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+}
+
+#top-bar {
+    grid-column: 1 / 4;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.resources span,
+.user-info span {
+    margin-right: 15px;
+}
+
+#sidebar {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+#sidebar ul li:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+#page-content {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.planet-info {
+    display: flex;
+    align-items: center;
+}
+
+.planet-info img {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+}
+
+.details p {
+    margin: 5px 0;
+}
+
+.buildings-research {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.box {
+    flex: 1;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+#planets-list {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+}
+
+.planet {
+    padding: 10px;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    cursor: pointer;
+}
+
+.planet:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+    </style>>
+</head>
+<body>
+    <div id="master-layout">
+        <header id="top-bar">
+            <div class="resources">
+                <span>Metal: 3.018M</span>
+                <span>Crystal: 749.69K</span>
+                <span>Deuterium: 2.009M</span>
+                <span>Energy: 21.672</span>
+            </div>
+            <div class="user-info">
+                <span>Profilo</span>
+                <span>Classifica</span>
+                <span>Opzioni</span>
+            </div>
+        </header>
+        
+        <aside id="sidebar">
+            <ul>
+                <li>Riepilogo</li>
+                <li>Risorse</li>
+                <li>Strutture</li>
+                <li>Mercante</li>
+                <li>Ricerca</li>
+                <li>Cantiere Spaziale</li>
+                <li>Flotta</li>
+                <li>Galassia</li>
+                <li>Alleanza</li>
+                <li>Shop</li>
+                <li>Ricompense</li>
+            </ul>
+        </aside>
+        
+        <main id="page-content">
+            <section id="overview">
+                <h2>Riepilogo - Luna</h2>
+                <div class="planet-info">
+                    <img src="moon.png" alt="Luna">
+                    <div class="details">
+                        <p>Diametro: 8.831km</p>
+                        <p>Temperatura: da -18°C a 58°C</p>
+                        <p>Posizione: [2:80:7]</p>
+                        <p>Punti: 67.478.484</p>
+                    </div>
+                </div>
+                <div class="buildings-research">
+                    <div class="box">Nessun edificio in costruzione.</div>
+                    <div class="box">Nessuna ricerca in corso.</div>
+                    <div class="box">Nessuna nave/difesa in costruzione.</div>
+                </div>
+            </section>
+        </main>
+        
+        <aside id="planets-list">
+            <div class="planet">Pianeta Madre [1:41:8]</div>
+            <div class="planet">Colonia [1:80:8]</div>
+            <div class="planet">Colonia [2:80:7]</div>
+            <div class="planet">Colonia [3:405:8]</div>
+        </aside>
+    </div>
+</body>
+</html>

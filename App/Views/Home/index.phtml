@@ -1,5 +1,28 @@
-<div>
-    <h2>Welcome to Our Application</h2>
-    <p>This is the main homepage of our great application.</p>
-    <!-- Aggiungi altri contenuti specifici per la homepage qui -->
+<div class="container">
+    <div class="info">
+        <h1>GalaxyAI</h1>
+        <p>Benvenuto nel gioco di esplorazione spaziale GalaxyAI.<br/>Unisciti a noi per esplorare l'universo, colonizzare pianeti e combattere contro altre civiltà.</p>
+        <a href="/forum">Forum</a> | <a href="/wiki">Wiki</a>
+    </div>
+    <div class="forms">
+        <div class="form-group" id="login-form">
+            <h2>Login</h2>
+            <form action="login" method="post">
+                <input type="text" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
+                <button type="submit" class="confirm">Accedi</button>
+                <button type="button" onclick="toggleForms()">Registrati</button>
+            </form>
+        </div>
+        <div class="form-group" id="registration-form" style="display: none;">
+            <h2>Registrazione</h2>
+            <form action="register" method="post" id="form-registration-form">
+                <input type="text" name="email" placeholder="Email">
+                <input type="text" name="username" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <button type="submit" class="confirm">Conferma</button>
+                <button type="button" onclick="toggleForms()">Hai già un account? Login</button>
+            </form>
+        </div>
+    </div>
 </div>

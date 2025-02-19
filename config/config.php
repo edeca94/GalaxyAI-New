@@ -15,3 +15,5 @@ define('DB_PASS', '');
 define('DB_NAME', 'GalaxyAI');
 
 define('BASE_URL', 'http://localhost');
+
+define('UNITS_PATH', BASE_URL . '/public/resources/units/');

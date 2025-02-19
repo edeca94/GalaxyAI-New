@@ -19,7 +19,7 @@ trait Authenticator
         }
     }
 
-    public function setSession(UserModel $userModel): void
+    public function setSession($userModel): void
     {
         $_SESSION[KWRD_TOKEN] = random_bytes(12);
         $_SESSION[KWRD_USERID] = $userModel->getUserId();
@@ -31,6 +31,6 @@ trait Authenticator
         $_SESSION[KWRD_TOKEN] = null;
         unset($_SESSION);
         session_destroy();
-        header(sprintf('Location: %s', ROUTE_HOME));
+        header(sprintf('Location: %s', '/'));
     }
 }

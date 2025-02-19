@@ -1,0 +1,45 @@
+<?php if (!is_null($buildings) && is_array($buildings)): ?>
+    <?php foreach ($buildings as $building): ?>
+        <div class="building-container">
+            <div class="building">
+                <div class="sub-container">
+                    <div class="image">
+                        <img src="<?php echo UNITS_PATH . $building['id']; ?>.gif" alt="<?php echo $building['name'] ?>">
+                    </div>
+                    <div class="description">
+                        <h2><?php echo $building['name']; ?> <span>(Livello <?php echo $building['level']; ?>)</span></h2>
+                        <p><?php echo $building['description']; ?></p>
+                        <p>
+                            <?php if ($building['cost_metal'] > 0): ?>
+                                <?php echo sprintf($translator->translate('cost_metal'), $building['cost_metal']); ?>
+                            <?php endif; ?>
+                            <?php if ($building['cost_crystal'] > 0): ?>
+                                <?php echo sprintf($translator->translate('cost_crystal'), $building['cost_crystal']); ?>
+                            <?php endif; ?>
+                            <?php if ($building['cost_deuterium'] > 0): ?>
+                                <?php echo sprintf($translator->translate('cost_deuterium'), $building['cost_deuterium']); ?>
+                            <?php endif; ?>
+                            <?php if ($building['cost_energy'] > 0): ?>
+                                <?php echo sprintf($translator->translate('cost_energy'), $building['cost_energy']); ?>
+                            <?php endif; ?>
+                        </p>
+                        <p>
+                            <?php echo sprintf($translator->translate('building_time'), $building['building_time']); ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="action">
+                <?php if ($building['buildable']): ?>
+                    <a href="#" style="color: lime !important;">
+                        <?php echo $building['level'] == 0 ? 'Costruisci' : 'Amplia al livello ' . (intval($building['level']) + 1); ?>
+                    </a>
+                <?php else: ?>
+                    <span style="color: #ff0000 !important;">
+                        <?php echo $building['level'] == 0 ? 'Costruisci' : 'Amplia al livello ' . (intval($building['level']) + 1); ?>
+                    </span>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

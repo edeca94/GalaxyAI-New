@@ -33,6 +33,7 @@ abstract class Core
     }
 
     function formatMilliseconds($milliseconds) {
+        $milliseconds = $milliseconds * 3600000;
         $seconds = floor($milliseconds / 1000);
         $minutes = floor($seconds / 60);
         $hours = floor($minutes / 60);
@@ -46,16 +47,16 @@ abstract class Core
         $timeUnits = array();
         
         if ($days > 0) {
-            $timeUnits[] = round($days) . ($days === 1 ? "g" : "gi");
+            $timeUnits[] = round($days) . ($days === 1 ? "g" : "g");
         }
         if ($remainingHours > 0) {
-            $timeUnits[] = round($remainingHours) . ($remainingHours === 1 ? "o" : "re");
+            $timeUnits[] = round($remainingHours) . ($remainingHours === 1 ? "o" : "o");
         }
         if ($remainingMinutes > 0) {
-            $timeUnits[] = round($remainingMinutes) . ($remainingMinutes === 1 ? "m" : "mi");
+            $timeUnits[] = round($remainingMinutes) . ($remainingMinutes === 1 ? "m" : "m");
         }
         if ($remainingSeconds > 0) {
-            $timeUnits[] = round($remainingSeconds) . ($remainingSeconds === 1 ? "s" : "se");
+            $timeUnits[] = round($remainingSeconds) . ($remainingSeconds === 1 ? "s" : "s");
         }
         if ($remainingMilliseconds >= 0) {
             $timeUnits[] = round($remainingMilliseconds) . ($remainingMilliseconds === 1 ? "ms" : "ms");
@@ -63,7 +64,6 @@ abstract class Core
     
         return implode(" ", $timeUnits);
     }
-    
 
     public function throwCustomErrorAjax($error)
     {

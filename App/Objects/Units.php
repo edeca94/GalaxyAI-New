@@ -471,15 +471,15 @@ class Units
         $factor = $unit->getFactor();
     
         if ($unit->getUnitId() < 100) {
-            return ($metal + $crystal) / (2500 * (1 + $robotLvl) * pow(2, $naniteLvl));
+            return (($metal + $crystal) / 2500) * (1 / (1 + $robotLvl)) * (1 / 10) * pow(2, -$naniteLvl);
         }
     
         if ($unit->getUnitId() > 100 && $unit->getUnitId() < 200) {
-            return ($metal * $factor + $crystal * $factor) / (1000 * (1 + $researchLabLvl));
+            return (($metal + $crystal) / 1000) * (1 + ($researchLabLvl * 10));
         }
     
         if ($unit->getUnitId() > 200 && $unit->getUnitId() < 400) {
-            return ($metal + $crystal) / (2500 * (1 + $hangarLvl) * pow(2, $naniteLvl));
+            return (($metal + $crystal) / 2500) * (1 / (1 + $hangarLvl)) * (1 / 10) * pow(2, -$naniteLvl);
         }
     
         return -1.0;

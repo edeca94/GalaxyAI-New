@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title><?php echo $title; ?></title>
-    <link rel="stylesheet" type="text/css" href="/public/css/ogame-style.css">
-    <link rel="stylesheet" href="/public/css/ogame-style.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/default.css">
+    <script src="/public/js/base.js"></script>
     <?php if (file_exists("public/css/{$controllerName}/{$methodName}.css")): ?>
         <link rel="stylesheet" type="text/css" href="/public/css/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.css">
     <?php endif; ?>
@@ -14,101 +17,92 @@
     <?php endif; ?>
 </head>
 <body>
-    <div id="top-bar">
-        <ul>
-            <li><a href="#">Forum</a></li>
-            <li><a href="#">Supporto</a></li>
-            <li><a href="#">Notizie</a></li>
-            <li><a href="#">Regolamento</a></li>
-        </ul>
-    </div>
-
-    <div id="wrapper">
-        <div id="header">
-            <div class="logo">OGame</div>
-            <div class="resources">
-                <div class="resource">
-                    <img src="/public/resources/metal.png" alt="Metallo">
-                    <div class="resource-text">
-                        <span class="resource-name">Metallo</span>
-                        <span class="resource-value">10.000.000.000.000</span>
+<body>
+    <main>
+	    <div id="error-message" style="display: none;"></div>
+        <header>
+            <div class="item">
+                <a href="#"><span class="material-symbols-outlined"></span>Board</a>
+            </div>
+            <div class="item">|</div>
+            <div class="item">
+                <a href="#">Statistics</a>
+            </div>
+            <div class="item">|</div>
+            <div class="item">
+                <a href="#">Support</a>
+            </div>
+            <div class="item">|</div>
+            <div class="item">
+                <a href="#">Wiki</a>
+            </div>
+            <div class="item">|</div>
+            <div class="item">
+                <a href="/logout">Logout</a>
+            </div>
+        </header>
+        <div class="layout">
+            <div class="resources-wrapper">
+                <div class="resource-odd">
+                    <div class="grid">
+                        <div class="cell">
+                            <div class="resource-content">
+                                <div class="detail1-left"><img src='../../public/images/resources/metal.webp'/></div>
+                                <div class="detail2-left"><?php echo $translator->translate('metal'); ?></div>
+                                <div class="detail3-left"><?php echo _prettyNumber($planet->getPlanetMetal()) ?></div>
+                            </div>
+                        </div>
+                        <div class="cell">
+                            <div class="resource-content">
+                                <div class="detail1-left"><img src='../../public/images/resources/crystal.webp'/></div>
+                                <div class="detail2-left"><?php echo $translator->translate('crystal'); ?></div>
+                                <div class="detail3-left"><?php echo _prettyNumber($planet->getPlanetCrystal()) ?></div>
+                            </div>
+                        </div>
+                        <div class="cell">
+                            <div class="resource-content">
+                                <div class="detail1-left"><img src='../../public/images/resources/deuterium.webp'/></div>
+                                <div class="detail2-left"><?php echo $translator->translate('deuterium'); ?></div>
+                                <div class="detail3-left"><?php echo _prettyNumber($planet->getPlanetDeuterium()) ?></div>
+                            </div>
+                        </div>
+                        <div class="cell">
+                            <div class="resource-content">
+                                <div class="detail1-left"><img src='../../public/images/resources/energy.webp'/></div>
+                                <div class="detail2-left"><?php echo $translator->translate('energy'); ?></div>
+                                <div class="detail3-left"><?php echo(_prettyNumber($planet->getPlanetEnergyMax() - $planet->getPlanetEnergyUsed())); ?></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="resource">
-                    <img src="/public/resources/crystal.png" alt="Cristallo">
-                    <div class="resource-text">
-                        <span class="resource-name">Cristallo</span>
-                        <span class="resource-value">10.000.000.000.000</span>
+                <div class="resource-even">
+                    center
+                </div>  
+                <div class="resource-odd">
+                    <div class="grid">
+                        <div class="cell">Cella 1</div>
+                        <div class="cell">Cella 2</div>
+                        <div class="cell">Cella 3</div>
+                        <div class="cell">Cella 4</div>
                     </div>
+                </div>  
+            </div>
+            <div class="main-wrapper">
+            <section class="layout-content">  
+                <div class="leftmenu">
+                    <?php include('left_menu.phtml'); ?>
                 </div>
-                <div class="resource">
-                    <img src="/public/resources/deuterium.png" alt="Deuterio">
-                    <div class="resource-text">
-                        <span class="resource-name">Deuterio</span>
-                        <span class="resource-value">10.000.000.000.000</span>
-                    </div>
+                <div class="grow1">
+                    <?php echo $content; ?>
                 </div>
-                <div class="resource">
-                    <img src="/public/resources/energy.png" alt="Energia">
-                    <div class="resource-text">
-                        <span class="resource-name">Energia</span>
-                        <span class="resource-value">10.000.000.000.000</span>
-                    </div>
-                </div>
-                <div class="resource">
-                    <img src="/public/resources/darkmatter.png" alt="Materia Oscura">
-                    <div class="resource-text">
-                        <span class="resource-name">Materia Oscura</span>
-                        <span class="resource-value">10.000.000.000.000</span>
-                    </div>
-                </div>
+                <div class="planets">3</div>
+            </section>
             </div>
         </div>
-
-        <div id="events-messages">
-            <div class="events">Eventi</div>
-            <div class="messages">Messaggi</div>
-        </div>
-
-        <div id="container">
-            <div id="nav">
-                <ul>
-                    <li><a href="#">Panoramica</a></li>
-                    <li><a href="#">Edifici</a></li>
-                    <li><a href="#">Ricerca</a></li>
-                    <li><a href="#">Cantiere navale</a></li>
-                    <li><a href="#">Flotta</a></li>
-                    <li><a href="#">Difese</a></li>
-                    <li><a href="#">Risorse
-                        <button class="overlay-btn">
-                            <img src="gestione_risorse.png" alt="Gestione Risorse">
-                        </button>
-                    </a></li>
-                    <li><a href="#">Commercio</a></li>
-                    <li><a href="#">Tecnologie</a></li>
-                    <li><a href="#">Statistiche</a></li>
-                    <li><a href="#">Galassia</a></li>
-                    <li><a href="#">Alleanza</a></li>
-                </ul>
-            </div>
-
-            <div id="main-content">
-                <?php echo $content; ?>
-            </div>
-        </div>
-
-        <div id="footer">
-            <p>&copy; 2024 OGame Style Interface</p>
-        </div>
-    </div>
-
-    <div id="bottom-bar">
-        <ul>
-            <li><a href="#">Impostazioni</a></li>
-            <li><a href="#">Logout</a></li>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#">Termini e condizioni</a></li>
-        </ul>
-    </div>
+    </main>
+    <script src="https://kit.fontawesome.com/c8fb982aca.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous"></script>
 </body>
 </html>
