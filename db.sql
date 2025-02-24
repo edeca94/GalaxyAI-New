@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS messages (
 );
 
 CREATE TABLE IF NOT EXISTS alliances (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    allianceId INT AUTO_INCREMENT PRIMARY KEY,
     allianceName VARCHAR(255) NOT NULL,
     allianceTag VARCHAR(10) NOT NULL,
     allianceOwnerId INT NOT NULL,
@@ -200,34 +200,23 @@ CREATE TABLE IF NOT EXISTS alliances (
     allianceRequestDefaultText TEXT,
     allianceClosed BOOLEAN DEFAULT 0,
     allianceRanks TEXT,
-    INDEX idx_id (id),
+    INDEX idx_id (allianceId),
     FOREIGN KEY (allianceOwnerId) REFERENCES users(id)
 );
 
 ALTER TABLE users
 ADD CONSTRAINT fk_allyId
-FOREIGN KEY (allyId) REFERENCES alliances(id);
+FOREIGN KEY (allyId) REFERENCES alliances(allianceId);
 
-CREATE TABLE IF NOT EXISTS events (
-    id INT AUTO_INCREMENT PRIMARY KYE,
+CREATE TABLE IF NOT EXISTS buildingQueue (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     userId INT NOT NULL,
-    planetId INT,
-    [status] ENUM('pending', 'completed', 'canceled') DEFAULT 'pending',
-    [type] ENUM('building', 'research', 'ship', 'defense', 'mission') NOT NULL,
-    startTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    endTime TIMESTAMP NOT NULL,
-    INDEX idx_id (id),
+    planetId INT NOT NULL,
+    buildingId INT NOT NULL,
+    buildingLevel INT NOT NULL,
+    startTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    endTime TIMESTAMP NULL DEFAULT NULL,
+    INDEX idx_planetId (planetId),
     FOREIGN KEY (userId) REFERENCES users(id),
     FOREIGN KEY (planetId) REFERENCES planets(id)
-)
-
-CREATE TABLE buildingQueue(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    eventId INT NOT NULL,
-    buildingId INT NOT NULL,
-    startLevel INT NOT NULL,
-    endLevel INT NOT NULL,
-    [type] ENUM('building', 'research')
-    INDEX idx_id (id),
-    FOREIGN KEY (eventId) REFERENCES events(id)
-)
+);

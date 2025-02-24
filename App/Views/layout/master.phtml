@@ -9,11 +9,15 @@
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" type="text/css" href="/public/css/default.css">
     <script src="/public/js/base.js"></script>
+    <script src="https://kit.fontawesome.com/c8fb982aca.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous"></script>
     <?php if (file_exists("public/css/{$controllerName}/{$methodName}.css")): ?>
         <link rel="stylesheet" type="text/css" href="/public/css/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.css">
     <?php endif; ?>
-    <?php if (file_exists("public/js/{$controllerName}/{$methodName}.js")): ?>
-        <script src="/public/js/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.js"></script>
+    <?php if (file_exists(APP_ROOT . "/public/js/{$controllerName}/{$methodName}.js")): ?>
+        <script src="<?php echo BASE_URL; ?>/public/js/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.js"></script>
     <?php endif; ?>
 </head>
 <body>
@@ -88,11 +92,12 @@
                 </div>  
             </div>
             <div class="main-wrapper">
-            <section class="layout-content">  
+            <section class="layout-content"> 
                 <div class="leftmenu">
                     <?php include('left_menu.phtml'); ?>
                 </div>
                 <div class="grow1">
+                <?php include('events.phtml'); ?>
                     <?php echo $content; ?>
                 </div>
                 <div class="planets">3</div>
@@ -100,9 +105,5 @@
             </div>
         </div>
     </main>
-    <script src="https://kit.fontawesome.com/c8fb982aca.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-        crossorigin="anonymous"></script>
 </body>
 </html>

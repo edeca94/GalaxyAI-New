@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
-use App\Core\Core;
+use App\Core\Controller;
 use App\Core\Authenticator;
+use App\Core\PDOFactory;
+use App\Core\Database;
 use App\Core\Objects\Units;
 use App\Core\Objects\Building;
 
@@ -15,7 +17,7 @@ use App\Models\DefenseModel;
 use App\Models\TechModel;
 use App\Models\PlanetModel;
 
-class BuildingService extends Core
+class BuildingService extends Controller
 {
     use Authenticator;
 
@@ -28,12 +30,19 @@ class BuildingService extends Core
     public DefenseModel $defenseModel;
     public PlanetModel $planetModel;
 
+    private $db;
+
     public function __construct() 
     {
         parent::__construct();
         
         $this->init();
         $this->inside();
+
+        $factory = new PDOFactory();
+        $pdo = $factory->createPDO();
+
+        $this->db = new Database($pdo);
 
         Units::init($this->translator);
     }
@@ -179,5 +188,22 @@ class BuildingService extends Core
     {
         $buildingData = $this->buildingModel->getPlanetBuildings($_SESSION[KWRD_CURPLANET]);
         return $buildingData['researchLab'] != 0;
+    }
+
+    public function saveBuildingEvent($buildingId, $startTime, $endTime, $buildingLevel)
+    {
+        var_dump($buildingId, $startTime, $endTime, $buildingLevel);
+        exit;
+        $this->db->insert(
+            'buildingQueue',
+            [
+                'userId' => $this->userId,
+                'planetId' => $this->currentPlanetId,
+                'buildingId' => $buildingId,
+                'buildingLevel' => $buildingLevel,
+                'startTime' => $startTime,
+                'endTime' => $endTime
+            ]
+        );
     }
 }

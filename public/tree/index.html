@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albero delle Abilità</title>
+    <style>
+        .tree-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-node {
+            padding: 10px;
+            border: 2px solid #fff;
+            background-color: #222;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.5;
+            display: inline-block;
+            text-align: center;
+        }
+        .unlocked {
+            border-color: green;
+            opacity: 1;
+        }
+        .requirements {
+            font-size: 12px;
+            color: yellow;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Albero delle Abilità</h2>
+<div class="tree-container" id="skillTree"></div>
+
+<script>
+    function loadSkills() {
+        fetch('get_skills.php')
+            .then(response => response.json())
+            .then(data => {
+                let container = document.getElementById("skillTree");
+                container.innerHTML = "";
+
+                data.forEach(skill => {
+                    let node = document.createElement("div");
+                    node.classList.add("skill-node");
+                    if (skill.level > 0) node.classList.add("unlocked");
+
+                    node.dataset.id = skill.id;
+                    node.innerHTML = `<strong>${skill.name}</strong> (Lv: ${skill.level})`;
+                    
+                    if (skill.requirements.length > 0) {
+                        let reqList = document.createElement("div");
+                        reqList.classList.add("requirements");
+                        reqList.innerHTML = "Requisiti: " + skill.requirements.join(", ");
+                        node.appendChild(reqList);
+                    }
+
+                    node.onclick = () => upgradeSkill(skill.id);
+                    container.appendChild(node);
+                });
+            });
+    }
+
+    function upgradeSkill(skill_id) {
+        fetch('upgrade_skill.php', {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `skill_id=${skill_id}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.status === "success") loadSkills();
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadSkills);
+</script>
+
+</body>
+</html>

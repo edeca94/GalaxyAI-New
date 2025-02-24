@@ -7,6 +7,9 @@ use App\Core\Authenticator;
 use App\Models\MessageModel;
 use App\Models\UserModel;
 use App\Models\PlanetModel;
+use App\Models\FlightEventModel;
+
+use App\Collections\FlightEventCollection;
 
 class LoaderService
 {
@@ -33,8 +36,28 @@ class LoaderService
         $unreadMessages = $messageModel->countUnreadMessages($userModel->getUserId());
         $baseData['unreadMessages'] = $unreadMessages;
 
+        //$baseData['flights'] = $this->loadFlights();
+
         return $baseData;
     }
+
+    /*public function loadFlights(): FlightEventCollection
+    {
+        if (!$this->authenticate()) {
+            return new FlightEventCollection();
+        }
+    
+        $eventModel = new FlightEventModel();
+        $flightsData = $eventModel->getUserFlights($_SESSION[KWRD_USERID]);
+    
+        $flightCollection = new FlightEventCollection();
+    
+        foreach ($flightsData as $flightData) {
+            $flightCollection->add((new FlightEventModel())->createModel($flightData));
+        }
+    
+        return $flightCollection;
+    }*/
     
     public function initAll($db, $userId, $planetId)
     {

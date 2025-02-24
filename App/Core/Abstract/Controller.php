@@ -16,8 +16,11 @@ abstract class Controller extends Core
     public function __construct()
     {
         Core::__construct();
+        $this->translator = new Translator($this->getUserLanguage());
         $this->loaderService = new LoaderService();
+        $this->baseData = [];
         $this->baseData = $this->loaderService->loadBaseData();
+
     }
 
     protected function view($data = [], $standAlone = false) 

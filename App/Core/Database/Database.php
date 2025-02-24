@@ -16,6 +16,7 @@ class Database extends Core
         Core::__construct();
 
         $this->pdo = $pdo;
+        $this->translator = new Translator($this->getUserLanguage());
     }
 
     public function executeQuery(string $query, array $params = []): PDOStatement

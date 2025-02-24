@@ -2,18 +2,16 @@
 
 namespace App\Core;
 
-use App\Core\Translator;
-
 abstract class Core
 {
     protected $translator;
 
     public function __construct()
     {
-        $this->translator = new Translator($this->getUserLanguage());
+        //$this->translator = new Translator($this->getUserLanguage());
     }
 
-    private function getUserLanguage(): string
+    protected function getUserLanguage(): string
     {
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $acceptedLanguages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];

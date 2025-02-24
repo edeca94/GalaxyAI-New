@@ -21,11 +21,16 @@ class ComposerStaticInitec9ec143a8332e9d6403a69a7783d7cb
     );
 
     public static $classMap = array (
+        'App\\Collections\\FlightEventCollection' => __DIR__ . '/../..' . '/App/Collections/FlightEventCollection.php',
         'App\\Collections\\MessageCollection' => __DIR__ . '/../..' . '/App/Collections/MessageCollection.php',
         'App\\Controllers\\BuildingsController' => __DIR__ . '/../..' . '/App/Controllers/BuildingsController.php',
+        'App\\Controllers\\DefenseController' => __DIR__ . '/../..' . '/App/Controllers/DefenseController.php',
+        'App\\Controllers\\FacilitiesController' => __DIR__ . '/../..' . '/App/Controllers/FacilitiesController.php',
         'App\\Controllers\\HomeController' => __DIR__ . '/../..' . '/App/Controllers/HomeController.php',
         'App\\Controllers\\LogoutController' => __DIR__ . '/../..' . '/App/Controllers/LogoutController.php',
         'App\\Controllers\\OverviewController' => __DIR__ . '/../..' . '/App/Controllers/OverviewController.php',
+        'App\\Controllers\\ResearchController' => __DIR__ . '/../..' . '/App/Controllers/ResearchController.php',
+        'App\\Controllers\\ShipyardController' => __DIR__ . '/../..' . '/App/Controllers/ShipyardController.php',
         'App\\Core\\Authenticator' => __DIR__ . '/../..' . '/App/Core/Authenticator.php',
         'App\\Core\\Controller' => __DIR__ . '/../..' . '/App/Core/Abstract/Controller.php',
         'App\\Core\\Core' => __DIR__ . '/../..' . '/App/Core/Core.php',
@@ -38,6 +43,9 @@ class ComposerStaticInitec9ec143a8332e9d6403a69a7783d7cb
         'App\\Core\\PDOFactory' => __DIR__ . '/../..' . '/App/Core/Database/PDOFactory.php',
         'App\\Core\\Router' => __DIR__ . '/../..' . '/App/Core/Router.php',
         'App\\Core\\Translator' => __DIR__ . '/../..' . '/App/Core/Translator.php',
+        'App\\Enums\\EventMission' => __DIR__ . '/../..' . '/App/Enums/EventMission.php',
+        'App\\Enums\\EventStatus' => __DIR__ . '/../..' . '/App/Enums/EventStatus.php',
+        'App\\Enums\\EventType' => __DIR__ . '/../..' . '/App/Enums/EventType.php',
         'App\\Interfaces\\ModelInterface' => __DIR__ . '/../..' . '/App/Interfaces/ModelInterface.php',
         'App\\Models\\AllianceModel' => __DIR__ . '/../..' . '/App/Models/AllianceModel.php',
         'App\\Models\\BuildingModel' => __DIR__ . '/../..' . '/App/Models/BuildingModel.php',
@@ -48,6 +56,7 @@ class ComposerStaticInitec9ec143a8332e9d6403a69a7783d7cb
         'App\\Models\\TechModel' => __DIR__ . '/../..' . '/App/Models/TechModel.php',
         'App\\Models\\UserModel' => __DIR__ . '/../..' . '/App/Models/UserModel.php',
         'App\\Services\\BuildingService' => __DIR__ . '/../..' . '/App/Services/BuildingService.php',
+        'App\\Services\\LoaderService' => __DIR__ . '/../..' . '/App/Services/LoaderService.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

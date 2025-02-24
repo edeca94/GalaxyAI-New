@@ -468,7 +468,6 @@ class Units
     
         $metal = $unit->getCostMetal();
         $crystal = $unit->getCostCrystal();
-        $factor = $unit->getFactor();
     
         if ($unit->getUnitId() < 100) {
             return (($metal + $crystal) / 2500) * (1 / (1 + $robotLvl)) * (1 / 10) * pow(2, -$naniteLvl);

@@ -1,6 +1,9 @@
 * {
     margin: 0;
     padding: 0;
+    
+    font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
+    font-size: 12px;
 }
 
 body, html {
@@ -292,4 +295,25 @@ header {
 
 .sub-container .description p {
     font-size: 13px;
+}
+
+/* TABLES - EVENTS */
+tr.event-fleets {
+    align-items: center;
+    display: grid;
+    grid-gap: 2px;
+    grid-template-columns: 82px 62px 23px 70px 87px auto 19px 87px 70px 23px 23px 23px;
+    white-space: nowrap;
+}
+
+tr.event-fleets td {
+    background: #222222;
+    opacity: 0.8;
+    border: 1px solid #777777;
+    padding: 2px;
+    text-align: left;
+}
+
+tr.event-fleets td.center {
+    text-align: center;
 }

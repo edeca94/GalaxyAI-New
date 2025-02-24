@@ -18,9 +18,7 @@ class OverviewController extends Controller
 
     private function init()
     {
-        $userModel = $this->baseData['user'];
-        $userData = $userModel->getUserById($_SESSION[KWRD_USERID]);
-        $this->userModel = $userModel->createModel($userData);
+        $this->userModel = $this->baseData['user'];
     }
 
     public function index(): void

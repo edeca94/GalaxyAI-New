@@ -1,0 +1,7 @@
+<?php
+    $localPlanet = $planet->createModel($planetData);
+    $galaxy = $localPlanet->getPlanetGalaxy();
+    $system = $localPlanet->getPlanetSystem();
+    $position = $localPlanet->getPlanetPosition();
+?>
+<a href="/galaxy&galaxy=<?= $galaxy ?>&system=<?= $system ?>&planet=<?= $position ?>">[<?= $galaxy ?>:<?= $system ?>:<?= $position ?>]</a>

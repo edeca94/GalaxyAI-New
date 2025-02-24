@@ -1,0 +1,25 @@
+<tr class="event-fleets">
+    <td class="countdown" data-endtime="<?= strtotime($flight->getEndTime()) ?>"></td>
+    <td><?= htmlspecialchars(date("H:i:s", strtotime($flight->getEndTime()))) ?></td>
+    <td><img src="<?= htmlspecialchars($flight->getMissionType()->getImagePath()) ?>"/></td>
+    <td>
+        <?php
+            $planetData = $planet->getPlanetById($flight->getPlanetId());
+            include('eventDetails/planet.phtml');
+        ?>
+    </td>
+    <td>L/P Name</td>
+    <td>NN999.284.111</td>
+    <td>A/R</td>
+    <td>L/P Name</td>
+    <td>
+        <?php
+            $planetData = $planet->getPlanetById($flight->getArrivalPlanetId());
+            $localPlanet = $planet->createModel($planetData);
+            include('eventDetails/planet.phtml');
+        ?>
+    </td>
+    <td>R</td>
+    <td>S</td>
+    <td>M</td>
+</tr>

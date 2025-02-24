@@ -31,9 +31,10 @@
             </div>
             <div class="action">
                 <?php if ($building['buildable']): ?>
-                    <a href="#" style="color: lime !important;">
+                    <a href="#" class="build-btn" data-id="<?php echo $building['id']; ?>" style="color: lime !important;">
                         <?php echo $building['level'] == 0 ? 'Costruisci' : 'Amplia al livello ' . (intval($building['level']) + 1); ?>
                     </a>
+                    <span class="countdown" data-id="<?php echo $building['id']; ?>"></span>
                 <?php else: ?>
                     <span style="color: #ff0000 !important;">
                         <?php echo $building['level'] == 0 ? 'Costruisci' : 'Amplia al livello ' . (intval($building['level']) + 1); ?>

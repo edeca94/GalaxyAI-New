@@ -10,6 +10,7 @@ use App\Models\ShipModel;
 use App\Models\DefenseModel;
 use App\Models\MessageModel;
 use App\Models\AllianceModel;
+use App\Models\EventModel;
 
 class Loader 
 {
@@ -176,6 +177,26 @@ class Loader
         $allianceModel->setAllianceRequestDefaultText($allianceData['allianceRequestDefaultText']);
         $allianceModel->setAllianceClosed($allianceData['allianceClosed']);
         $allianceModel->setAllianceRanks($allianceData['allianceRanks']);
+    }
+
+    public static function loadEventData(EventModel $eventModel, array $eventData): void
+    {
+        $eventModel->setEventId($eventData['eventId']);
+        $eventModel->setUserId($eventData['userId']);
+        $eventModel->setPlanetId($eventData['planetId']);
+        $eventModel->setStatus($eventData['status']);
+        $eventModel->setType($eventData['type']);
+        $eventModel->setStartTime($eventData['startTime']);
+        $eventModel->setEndTime($eventData['endTime']);
+        $eventModel->setBuildingQueueId($eventData['buildingQueueId']);
+        $eventModel->setBuildingId($eventData['buildingId']);
+        $eventModel->setStartLevel($eventData['startLevel']);
+        $eventModel->setEndLevel($eventData['endLevel']);
+        $eventModel->setBuildingQueueType($eventData['buildingQueueType']);
+        $eventModel->setFlightId($eventData['flightId']);
+        $eventModel->setMissionType($eventData['missionType']);
+        $eventModel->setTargetId($eventData['targetId']);
+        $eventModel->setArrivalPlanetId($eventData['arrivalPlanetId']);
     }
 
     public static function loadBaseData(): array

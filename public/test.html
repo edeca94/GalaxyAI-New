@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabella Eventi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1f2b;
+            color: white;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #1e2a38;
+        }
+        .event-primary {
+            background-color: #113366;
+        }
+        .event-secondary {
+            background-color: #1a4b7a;
+        }
+        .return-primary {
+            background-color: #224400;
+        }
+        .return-secondary {
+            background-color: #336600;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Tempo</th>
+            <th>Ora</th>
+            <th>Coordinate</th>
+            <th>Destinazione</th>
+            <th>ID</th>
+            <th>Missione</th>
+        </tr>
+        <tr class="event-primary">
+            <td>18m 1s</td>
+            <td>15:48:07</td>
+            <td>[2:80:7]</td>
+            <td>Luna</td>
+            <td>18003</td>
+            <td>Spazio pr...</td>
+        </tr>
+        <tr class="event-secondary">
+            <td>18m 6s</td>
+            <td>15:48:12</td>
+            <td>[2:80:7]</td>
+            <td>Luna</td>
+            <td>18003</td>
+            <td>Spazio pr...</td>
+        </tr>
+        <tr class="return-primary">
+            <td>26m 46s</td>
+            <td>15:56:52</td>
+            <td>[1:41:8]</td>
+            <td>Pianeta M...</td>
+            <td>800</td>
+            <td>Luna</td>
+        </tr>
+        <tr class="return-secondary">
+            <td>26m 53s</td>
+            <td>15:56:59</td>
+            <td>[1:41:9]</td>
+            <td>Colonia</td>
+            <td>800</td>
+            <td>Luna</td>
+        </tr>
+    </table>
+</body>
+</html>

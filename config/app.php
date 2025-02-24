@@ -26,6 +26,7 @@ $router->register('/logout', 'LogoutController@index');
 //INGAME
 $router->register('/overview', 'OverviewController@index');
 $router->register('/buildings', 'BuildingsController@index');
+$router->register('/buildings/startConstruction', 'BuildingsController@startConstruction');
 $router->register('/facilities', 'FacilitiesController@index');
 $router->register('/research', 'ResearchController@index');
 $router->register('/shipyard', 'ShipyardController@index');
