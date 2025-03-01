@@ -21,6 +21,7 @@ class ComposerStaticInitec9ec143a8332e9d6403a69a7783d7cb
     );
 
     public static $classMap = array (
+        'App\\Collections\\BuildingQueueCollection' => __DIR__ . '/../..' . '/App/Collections/BuildingQueueCollection.php',
         'App\\Collections\\FlightEventCollection' => __DIR__ . '/../..' . '/App/Collections/FlightEventCollection.php',
         'App\\Collections\\MessageCollection' => __DIR__ . '/../..' . '/App/Collections/MessageCollection.php',
         'App\\Controllers\\BuildingsController' => __DIR__ . '/../..' . '/App/Controllers/BuildingsController.php',
@@ -34,8 +35,11 @@ class ComposerStaticInitec9ec143a8332e9d6403a69a7783d7cb
         'App\\Core\\Authenticator' => __DIR__ . '/../..' . '/App/Core/Authenticator.php',
         'App\\Core\\Controller' => __DIR__ . '/../..' . '/App/Core/Abstract/Controller.php',
         'App\\Core\\Core' => __DIR__ . '/../..' . '/App/Core/Core.php',
+        'App\\Core\\CronJob' => __DIR__ . '/../..' . '/App/Core/Abstract/CronJob.php',
+        'App\\Core\\Cron\\EvaluateBuildingQueueCron' => __DIR__ . '/../..' . '/App/Services/Crons/EvaluateBuildingQueueCron.php',
         'App\\Core\\Database' => __DIR__ . '/../..' . '/App/Core/Database/Database.php',
         'App\\Core\\Loader' => __DIR__ . '/../..' . '/App/Core/Loader.php',
+        'App\\Core\\LogManager' => __DIR__ . '/../..' . '/App/Core/LogManager.php',
         'App\\Core\\Model' => __DIR__ . '/../..' . '/App/Core/Abstract/Model.php',
         'App\\Core\\Objects\\Building' => __DIR__ . '/../..' . '/App/Objects/units/Building.php',
         'App\\Core\\Objects\\Unit' => __DIR__ . '/../..' . '/App/Objects/Unit.php',
@@ -46,9 +50,11 @@ class ComposerStaticInitec9ec143a8332e9d6403a69a7783d7cb
         'App\\Enums\\EventMission' => __DIR__ . '/../..' . '/App/Enums/EventMission.php',
         'App\\Enums\\EventStatus' => __DIR__ . '/../..' . '/App/Enums/EventStatus.php',
         'App\\Enums\\EventType' => __DIR__ . '/../..' . '/App/Enums/EventType.php',
+        'App\\Helpers\\RequestHelper' => __DIR__ . '/../..' . '/App/Helpers/RequestHelper.php',
         'App\\Interfaces\\ModelInterface' => __DIR__ . '/../..' . '/App/Interfaces/ModelInterface.php',
         'App\\Models\\AllianceModel' => __DIR__ . '/../..' . '/App/Models/AllianceModel.php',
         'App\\Models\\BuildingModel' => __DIR__ . '/../..' . '/App/Models/BuildingModel.php',
+        'App\\Models\\BuildingQueueModel' => __DIR__ . '/../..' . '/App/Models/BuildingQueueModel.php',
         'App\\Models\\DefenseModel' => __DIR__ . '/../..' . '/App/Models/DefenseModel.php',
         'App\\Models\\MessageModel' => __DIR__ . '/../..' . '/App/Models/MessageModel.php',
         'App\\Models\\PlanetModel' => __DIR__ . '/../..' . '/App/Models/PlanetModel.php',
@@ -56,6 +62,8 @@ class ComposerStaticInitec9ec143a8332e9d6403a69a7783d7cb
         'App\\Models\\TechModel' => __DIR__ . '/../..' . '/App/Models/TechModel.php',
         'App\\Models\\UserModel' => __DIR__ . '/../..' . '/App/Models/UserModel.php',
         'App\\Services\\BuildingService' => __DIR__ . '/../..' . '/App/Services/BuildingService.php',
+        'App\\Services\\Cron\\CronService' => __DIR__ . '/../..' . '/App/Services/CronService.php',
+        'App\\Services\\EventService' => __DIR__ . '/../..' . '/App/Services/EventService.php',
         'App\\Services\\LoaderService' => __DIR__ . '/../..' . '/App/Services/LoaderService.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );

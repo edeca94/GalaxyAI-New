@@ -37,7 +37,7 @@ class LoaderService
         $baseData['unreadMessages'] = $unreadMessages;
 
         //$baseData['flights'] = $this->loadFlights();
-
+        var_dump($baseData); exit;
         return $baseData;
     }
 

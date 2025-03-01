@@ -7,17 +7,17 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title><?php echo $title; ?></title>
-    <link rel="stylesheet" type="text/css" href="/public/css/default.css">
-    <script src="/public/js/base.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/css/default.css?v=<?php echo time(); ?>">
+    <script src="/public/js/base.js?v=<?php echo time(); ?>"></script>
     <script src="https://kit.fontawesome.com/c8fb982aca.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
         crossorigin="anonymous"></script>
     <?php if (file_exists("public/css/{$controllerName}/{$methodName}.css")): ?>
-        <link rel="stylesheet" type="text/css" href="/public/css/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.css">
+        <link rel="stylesheet" type="text/css" href="/public/css/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.css?v=<?php echo time(); ?>">
     <?php endif; ?>
     <?php if (file_exists(APP_ROOT . "/public/js/{$controllerName}/{$methodName}.js")): ?>
-        <script src="<?php echo BASE_URL; ?>/public/js/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/js/<?php echo $controllerName; ?>/<?php echo $methodName; ?>.js?v=<?php echo time(); ?>"></script>
     <?php endif; ?>
 </head>
 <body>
@@ -51,30 +51,30 @@
                     <div class="grid">
                         <div class="cell">
                             <div class="resource-content">
-                                <div class="detail1-left"><img src='../../public/images/resources/metal.webp'/></div>
+                                <div class="detail1-left"><img src='../../public/resources/metal.png'/></div>
                                 <div class="detail2-left"><?php echo $translator->translate('metal'); ?></div>
-                                <div class="detail3-left"><?php echo _prettyNumber($planet->getPlanetMetal()) ?></div>
+                                <div class="detail3-left metal"><?php echo _prettyNumber($planet->getPlanetMetal()) ?></div>
                             </div>
                         </div>
                         <div class="cell">
                             <div class="resource-content">
-                                <div class="detail1-left"><img src='../../public/images/resources/crystal.webp'/></div>
+                                <div class="detail1-left"><img src='../../public/resources/crystal.png'/></div>
                                 <div class="detail2-left"><?php echo $translator->translate('crystal'); ?></div>
-                                <div class="detail3-left"><?php echo _prettyNumber($planet->getPlanetCrystal()) ?></div>
+                                <div class="detail3-left crystal"><?php echo _prettyNumber($planet->getPlanetCrystal()) ?></div>
                             </div>
                         </div>
                         <div class="cell">
                             <div class="resource-content">
-                                <div class="detail1-left"><img src='../../public/images/resources/deuterium.webp'/></div>
+                                <div class="detail1-left"><img src='../../public/resources/deuterium.png'/></div>
                                 <div class="detail2-left"><?php echo $translator->translate('deuterium'); ?></div>
-                                <div class="detail3-left"><?php echo _prettyNumber($planet->getPlanetDeuterium()) ?></div>
+                                <div class="detail3-left deuterium"><?php echo _prettyNumber($planet->getPlanetDeuterium()) ?></div>
                             </div>
                         </div>
                         <div class="cell">
                             <div class="resource-content">
-                                <div class="detail1-left"><img src='../../public/images/resources/energy.webp'/></div>
+                                <div class="detail1-left"><img src='../../public/resources/energy.png'/></div>
                                 <div class="detail2-left"><?php echo $translator->translate('energy'); ?></div>
-                                <div class="detail3-left"><?php echo(_prettyNumber($planet->getPlanetEnergyMax() - $planet->getPlanetEnergyUsed())); ?></div>
+                                <div class="detail3-left energy"><?php echo(_prettyNumber($planet->getPlanetEnergyMax() - $planet->getPlanetEnergyUsed())); ?></div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                     <?php include('left_menu.phtml'); ?>
                 </div>
                 <div class="grow1">
-                <?php include('events.phtml'); ?>
+                <?php //include('events.phtml'); ?>
                     <?php echo $content; ?>
                 </div>
                 <div class="planets">3</div>

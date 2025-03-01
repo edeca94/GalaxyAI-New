@@ -1,4 +1,8 @@
-<?php echo '<pre>' . print_r($queue) . '</pre>';exit; ?>
+<div id="construction-queue">
+    <h3>Coda di Costruzione</h3>
+    <div id="queue-list"></div>
+</div>
+
 <?php if (!is_null($buildings) && is_array($buildings)): ?>
     <?php foreach ($buildings as $building): ?>
         <div class="building-container">

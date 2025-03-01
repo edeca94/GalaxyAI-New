@@ -10,6 +10,7 @@ use App\Models\ShipModel;
 use App\Models\DefenseModel;
 use App\Models\MessageModel;
 use App\Models\AllianceModel;
+use App\Models\BuildingQueueModel;
 use App\Models\EventModel;
 
 class Loader 
@@ -178,25 +179,17 @@ class Loader
         $allianceModel->setAllianceClosed($allianceData['allianceClosed']);
         $allianceModel->setAllianceRanks($allianceData['allianceRanks']);
     }
-
-    public static function loadEventData(EventModel $eventModel, array $eventData): void
+    
+    public static function loadBuildingQueueData(BuildingQueueModel $buildingQueueModel, array $buildingQueueData): void
     {
-        $eventModel->setEventId($eventData['eventId']);
-        $eventModel->setUserId($eventData['userId']);
-        $eventModel->setPlanetId($eventData['planetId']);
-        $eventModel->setStatus($eventData['status']);
-        $eventModel->setType($eventData['type']);
-        $eventModel->setStartTime($eventData['startTime']);
-        $eventModel->setEndTime($eventData['endTime']);
-        $eventModel->setBuildingQueueId($eventData['buildingQueueId']);
-        $eventModel->setBuildingId($eventData['buildingId']);
-        $eventModel->setStartLevel($eventData['startLevel']);
-        $eventModel->setEndLevel($eventData['endLevel']);
-        $eventModel->setBuildingQueueType($eventData['buildingQueueType']);
-        $eventModel->setFlightId($eventData['flightId']);
-        $eventModel->setMissionType($eventData['missionType']);
-        $eventModel->setTargetId($eventData['targetId']);
-        $eventModel->setArrivalPlanetId($eventData['arrivalPlanetId']);
+        $buildingQueueModel->setId($buildingQueueData['id']);
+        $buildingQueueModel->setUserId($buildingQueueData['userId']);
+        $buildingQueueModel->setPlanetId($buildingQueueData['planetId']);
+        $buildingQueueModel->setQueuePosition($buildingQueueData['queuePosition']);
+        $buildingQueueModel->setBuildingId($buildingQueueData['buildingId']);
+        $buildingQueueModel->setBuildingLevel($buildingQueueData['buildingLevel']);
+        $buildingQueueModel->setStartTime($buildingQueueData['startTime']);
+        $buildingQueueModel->setEndTime($buildingQueueData['endTime']);
     }
 
     public static function loadBaseData(): array

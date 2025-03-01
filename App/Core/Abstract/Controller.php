@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\Services\EventService;
 use App\Services\LoaderService;
 
 abstract class Controller extends Core
@@ -10,17 +11,19 @@ abstract class Controller extends Core
 
     protected $viewBag = [];
     protected $loaderService;
+    protected $eventService;
+    protected $currentController;
 
     public $baseData = [];
 
     public function __construct()
     {
         Core::__construct();
-        $this->translator = new Translator($this->getUserLanguage());
         $this->loaderService = new LoaderService();
         $this->baseData = [];
         $this->baseData = $this->loaderService->loadBaseData();
-
+        $data['translator'] = $this->translator;
+        $this->eventService = new EventService();
     }
 
     protected function view($data = [], $standAlone = false) 
@@ -28,15 +31,15 @@ abstract class Controller extends Core
         $reflection = new \ReflectionClass($this);
         $controllerName = $reflection->getShortName();
         $controllerName = str_replace(ucfirst(KWRD_CONTROLLER), '', $controllerName);
+        $this->currentController = $controllerName;
         $backtrace = debug_backtrace();
         $methodName = $backtrace[1]['function'];
         $basePath = realpath(__DIR__ . '/../../'); 
         $viewPath = "{$basePath}/Views/{$controllerName}/{$methodName}" . EXT_PHTML;
 
-        $data['translator'] = $this->translator;
-
         if ($this->authenticate())
         {
+            $this->eventService->evaluateQueue();
             $data = array_merge($data, $this->baseData);
         }
         
@@ -61,7 +64,7 @@ abstract class Controller extends Core
         else 
         {
             header("HTTP/1.1 404 Not Found");
-            echo "View not found: {$viewPath}"; //TODO: Agggiungere traduzione/visualizzare pagina statica di errore
+            echo "View not found: {$viewPath}"; 
             exit;
         }
     }
@@ -83,5 +86,24 @@ abstract class Controller extends Core
     protected function get($key) 
     {
         return isset($this->viewBag[$key]) ? $this->viewBag[$key] : null;
+    }
+
+    protected function jsonResponse($response)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+    }
+
+    public function handleQueue()
+    {
+        if (!empty($this->eventService->evaluateQueue()))
+        {
+            $this->jsonResponse(['success' => true]);
+        }
+        else
+        {
+            $this->jsonResponse(['success' => false]);
+        }
     }
 }

@@ -43,6 +43,39 @@ class PlanetModel extends Model
     protected $planetDebrisMetal;
     protected $planetDebrisCrystal; 
 
+    private static $dbToModelMapping = [
+        'name' => 'planetName',
+        'type' => 'planetType',
+        'image' => 'planetImage',
+        'galaxy' => 'planetGalaxy',
+        'system' => 'planetSystem',
+        'position' => 'planetPosition',
+        'lastUpdate' => 'planetLastUpdate',
+        'destroyed' => 'planetDestroyed',
+        'fields' => 'planetFields',
+        'totalFields' => 'planetTotalFields',
+        'diameter' => 'planetDiameter',
+        'minTemp' => 'planetMinTemp',
+        'maxTemp' => 'planetMaxTemp',
+        'metal' => 'planetMetal',
+        'metalPerHour' => 'planetMetalPerHour',
+        'crystal' => 'planetCrystal',
+        'crystalPerHour' => 'planetCrystalPerHour',
+        'deuterium' => 'planetDeuterium',
+        'deuteriumPerHour' => 'planetDeuteriumPerHour',
+        'energyUsed' => 'planetEnergyUsed',
+        'energyMax' => 'planetEnergyMax',
+        'metalMinePercent' => 'planetMetalMinePercent',
+        'crystalMinePercent' => 'planetCrystalMinePercent',
+        'deuteriumSynthesizerPercent' => 'planetDeuteriumSynthesizerPercent',
+        'solarPlantPercent' => 'planetSolarPlantPercent',
+        'fusionReactorPercent' => 'planetFusionReactorPercent',
+        'solarSatellitePercent' => 'planetSolarSatellitePercent',
+        'lastJumpTime' => 'planetLastJumpTime',
+        'debrisMetal' => 'planetDebrisMetal',
+        'debrisCrystal' => 'planetDebrisCrystal',
+    ];
+
     public function assignFirstPlanet($userId) : void
     {
         $position = $this->findNextFreePosition();
@@ -154,5 +187,48 @@ class PlanetModel extends Model
     {
         Loader::loadPlanetData($this, $planetData);
         return $this;
+    }
+
+    public function update(): bool
+    {
+        try 
+        {
+            $originalData = $this->getPlanetById($this->planetId);
+
+            if (!$originalData) 
+            {
+                throw new Exception("Errore: nessun oggetto trovato per il pianeta ID {$this->planetId}");
+            }
+
+            $updates = [];
+            $params = [':id' => $this->planetId];
+
+            foreach ($originalData as $column => $originalValue) 
+            {
+                if (isset(self::$dbToModelMapping[$column])) {
+                    $property = self::$dbToModelMapping[$column];
+            
+                    if (property_exists($this, $property) && (string) $this->$property !== (string) $originalValue) 
+                    {
+                        $updates[] = "$column = :$column";
+                        $params[":$column"] = $this->$property;
+                    }
+                }
+            }
+
+            if (empty($updates)) 
+            {
+                return false;
+            }
+
+            $query = "UPDATE planets SET " . implode(", ", $updates) . " WHERE id = :id";
+
+            $stmt = $this->db->executeQuery($query, $params);
+            return $stmt->rowCount() > 0;
+        } 
+        catch (Exception $e) 
+        {
+            throw new Exception("Errore nell'update: " . $e->getMessage());
+        }
     }
 }

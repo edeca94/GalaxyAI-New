@@ -12,7 +12,7 @@ abstract class Model extends Core
     public function __construct()
     {
         Core::__construct();
-        
+
         $factory = new PDOFactory();
         $pdo = $factory->createPDO();
 

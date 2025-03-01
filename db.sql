@@ -212,6 +212,7 @@ CREATE TABLE IF NOT EXISTS buildingQueue (
     id INT AUTO_INCREMENT PRIMARY KEY,
     userId INT NOT NULL,
     planetId INT NOT NULL,
+    queuePosition INT DEFAULT 1,
     buildingId INT NOT NULL,
     buildingLevel INT NOT NULL,
     startTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),

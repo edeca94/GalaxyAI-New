@@ -5,17 +5,27 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Core\Objects\Units;
 
+use App\Models\BuildingQueueModel;
+
+use App\Collections\BuildingQueueCollection;
+
+use App\Helpers\RequestHelper;
+
 use App\Services\BuildingService;
+
+use Exception;
 
 class BuildingsController extends Controller
 {
     private $service;
     private $buildings;
+    private $buildingQueue;
 
     public function __construct()
     {
         parent::__construct();
         $this->service = new BuildingService();
+        $this->buildingQueue = $this->service->getBuildingQueue();
 
         $units = Units::getResources();
         $this->buildings = $this->service->loadUnitData($units);
@@ -25,52 +35,87 @@ class BuildingsController extends Controller
     {
         $building = $this->service->buildingModel;
 
+        $buildingQueueCollection = new BuildingQueueCollection();
+        foreach ($this->buildingQueue as $queueItem) 
+        {
+            $buildingQueueModel = new BuildingQueueModel();
+            $buildingQueueModel = $buildingQueueModel->createModel($queueItem);
+            $buildingQueueCollection->add($buildingQueueModel);
+        }
+        //foreach in buildings getBuildingMaxLevelInQueue and insert nextLevel with sum of current + queue a
+        //var_dump($buildingQueueCollection); exit;
+
         $this->view([
             'building' => $building,
-            'buildings' => $this->buildings
+            'buildings' => $this->buildings,
+            'queue' => $buildingQueueCollection
         ]);
     }
 
-    public function startConstruction()
+    public function addToQueue()
     {
-        header('Content-Type: application/json');
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-
-        if (!isset($_POST['id'])) {
-            echo json_encode(['error' => 'ID edificio mancante']);
-            exit;
-        }
-
+        RequestHelper::validatePostParams(['id']);
         $buildingId = intval($_POST['id']);
 
-        if (!isset($this->buildings[$buildingId])) {
-            echo json_encode(['error' => 'Edificio non trovato']);
-            exit;
-        }
-
         $building = $this->buildings[$buildingId];
+        $newLevel = intval($building['nextLevel']);
 
-        if (!isset($building['building_time'])) {
-            echo json_encode(['error' => 'Tempo di costruzione non trovato']);
-            exit;
+        try 
+        {
+            $result = $this->service->saveBuildingEvent($buildingId, $building['raw_building_time'], $newLevel);
+
+            $this->buildingQueue = $this->service->getBuildingQueue();
+
+            if ($result)
+            {
+                $response = [
+                    'success' => true,
+                    'queue' => $this->buildingQueue
+                ];
+
+                $this->jsonResponse($response);
+            }
+            else
+            {
+                $this->jsonResponse(['success' => false]);
+            }
         }
+        catch (Exception $e)
+        {
+            $this->jsonResponse(['error' => $e->getMessage()]);
+        }
+    }
 
-        $buildingTime = intval($building['building_time']);
-        $newLevel = intval($building['level']) + 1;
+    public function removeFromQueue()
+    {
+        RequestHelper::validatePostParams(['id', 'position', 'level']);
+        $buildingId = intval($_POST['id']);
+        $position = intval($_POST['position']);
+        $level = intval($_POST['level']);
 
-        $startTime = time();
-        $endTime = $startTime + $buildingTime;
+        try 
+        {
+            $result = $this->service->removeBuildingFromQueue($buildingId, $position, $level);
 
-        $this->service->saveBuildingEvent($buildingId, $startTime, $endTime, $newLevel);
+            $this->buildingQueue = $this->service->getBuildingQueue();
 
-        echo json_encode([
-            'success' => true,
-            'startTime' => $startTime,
-            'endTime' => $endTime,
-            'level' => $newLevel,
-            'buildTime' => $buildingTime
-        ]);
-        exit;
+            if ($result)
+            {
+                $response = [
+                    'success' => true,
+                    'queue' => $this->buildingQueue
+                ];
+
+                $this->jsonResponse($response);
+            }
+            else
+            {
+                $this->jsonResponse(['success' => false]);
+            }
+        }
+        catch (Exception $e)
+        {
+            $this->jsonResponse(['error' => $e->getMessage()]);
+        }
     }
 }

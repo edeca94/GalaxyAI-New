@@ -53,6 +53,44 @@ class BuildingModel extends Model implements ModelInterface
         return null;
     }
 
+    public function update(): bool
+    {
+        try 
+        {
+            $originalData = $this->getPlanetBuildings($this->planetId);
+
+            if (!$originalData) 
+            {
+                throw new Exception("Errore: nessun edificio trovato per il pianeta ID {$this->planetId}");
+            }
+
+            $updates = [];
+            $params = [':planetId' => $this->planetId];
+
+            foreach ($originalData as $column => $originalValue) 
+            {
+                if (property_exists($this, $column) && $this->$column !== $originalValue) 
+                {
+                    $updates[] = "$column = :$column";
+                    $params[":$column"] = $this->$column;
+                }
+            }
+
+            if (empty($updates)) {
+                return false;
+            }
+
+            $query = "UPDATE buildings SET " . implode(", ", $updates) . " WHERE planetId = :planetId";
+
+            $stmt = $this->db->executeQuery($query, $params);
+            return $stmt->rowCount() > 0;
+        } 
+        catch (Exception $e) 
+        {
+            throw new Exception("Errore nell'update: " . $e->getMessage());
+        }
+    }
+
     public function createModel(array $buildingsData): self
     {
         Loader::loadBuildingData($this, $buildingsData);

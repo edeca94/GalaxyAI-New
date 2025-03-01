@@ -16,6 +16,7 @@ use App\Models\ShipModel;
 use App\Models\DefenseModel;
 use App\Models\TechModel;
 use App\Models\PlanetModel;
+use App\Models\BuildingQueueModel;
 
 class BuildingService extends Controller
 {
@@ -29,6 +30,7 @@ class BuildingService extends Controller
     public ShipModel $shipModel;
     public DefenseModel $defenseModel;
     public PlanetModel $planetModel;
+    public BuildingQueueModel $buildingQueueModel;
 
     private $db;
 
@@ -71,6 +73,9 @@ class BuildingService extends Controller
         $techModel = new TechModel();
         $techData = $techModel->getUserTechs($this->userId);
         $this->techModel = $techModel->createModel($techData);
+
+        $this->buildingQueueModel = new BuildingQueueModel();
+        $this->buildingQueueModel->setPlanetId($this->currentPlanetId);
     }
 
     public function loadUnitData(array $units): array
@@ -92,16 +97,16 @@ class BuildingService extends Controller
                 Units::getPriceList($id)['energy'],
                 Units::getPriceList($id)['factor']
             );
-
-            $buildingTime = $this->formatMilliseconds(
-                Units::getBuildingTime(
-                    $building,
-                    $this->buildingModel->getRobotFactory(),
-                    $this->buildingModel->getHangar(),
-                    $this->buildingModel->getNaniteFactory(),
-                    $this->buildingModel->getResearchLab()
-                )
+            
+            $rawBuildingTime = Units::getBuildingTime(
+                $building,
+                $this->buildingModel->getRobotFactory(),
+                $this->buildingModel->getHangar(),
+                $this->buildingModel->getNaniteFactory(),
+                $this->buildingModel->getResearchLab()
             );
+
+            $buildingTime = $this->formatMilliseconds($rawBuildingTime);
 
             $requiredResources = [
                 'metal' => $building->getCostMetal(),
@@ -111,6 +116,7 @@ class BuildingService extends Controller
             ];
 
             $resources[$id] = [
+                'object' => $building,
                 'id' => $id,
                 'name' => Units::getName($id),
                 'description' => Units::getDescription($id),
@@ -119,7 +125,14 @@ class BuildingService extends Controller
                 'cost_crystal' => $this->prettyNumber($building->getCostCrystal()),
                 'cost_deuterium' => $this->prettyNumber($building->getCostDeuterium()),
                 'cost_energy' => $this->prettyNumber($building->getCostEnergy()),
+                'raw_costs' => [
+                    'metal' => $building->getCostMetal(),
+                    'crystal' => $building->getCostCrystal(),
+                    'deuterium' => $building->getCostDeuterium(),
+                    'energy' => $building->getCostEnergy()
+                ],
                 'building_time' => $buildingTime,
+                'raw_building_time' => $rawBuildingTime * 3600,
                 'buildable' => $this->areRequirementsMet($id, $model, $unit) && $this->isBuildable($requiredResources)
             ];
         }
@@ -190,20 +203,58 @@ class BuildingService extends Controller
         return $buildingData['researchLab'] != 0;
     }
 
-    public function saveBuildingEvent($buildingId, $startTime, $endTime, $buildingLevel)
+    public function saveBuildingEvent($buildingId, $buildingTime, $buildingLevel)
     {
-        var_dump($buildingId, $startTime, $endTime, $buildingLevel);
-        exit;
-        $this->db->insert(
-            'buildingQueue',
-            [
-                'userId' => $this->userId,
-                'planetId' => $this->currentPlanetId,
-                'buildingId' => $buildingId,
-                'buildingLevel' => $buildingLevel,
-                'startTime' => $startTime,
-                'endTime' => $endTime
-            ]
-        );
+        $queueCount = $this->buildingQueueModel->getBuildingQueueCount();
+
+        if ($queueCount >= 10)
+        {
+            return [
+                'error' => 'Coda costruzioni piena'
+            ];
+        }
+
+        $position = $queueCount + 1;
+
+        if ($queueCount == 0)
+        {
+            $startTime = time();
+            $endTime = $startTime + $buildingTime;
+        }
+        else
+        {
+            $lastEvent = $this->buildingQueueModel->getBuildingQueueLastEvent();
+            $lastBuildingLevel = $this->buildingQueueModel->getBuildingMaxLevelInQueue($buildingId);
+
+            $buildingLevel = $lastBuildingLevel + 1;
+            $startTime = strtotime($lastEvent['endTime']);
+            $endTime = $startTime + $buildingTime;
+        }
+
+        $data = [
+            'userId' => $this->userId,
+            'queuePosition' => $position,
+            'buildingId' => $buildingId,
+            'buildingLevel' => $buildingLevel,
+            'startTime' => (int) $startTime,
+            'endTime' => (int) $endTime
+        ];
+
+        $this->buildingQueueModel->insertInQueue($data);
+
+        return $queueCount == 0 ? ['startTime' => $startTime, 'endTime' => $endTime, 'buildingId' => $buildingId] : null;
     }
+
+    public function removeBuildingFromQueue($buildingId, $position, $level)
+    {
+        $this->buildingQueueModel->removeFromQueue($buildingId, $position, $level);
+        $this->buildingQueueModel->reorderQueue();
+
+        return true;
+    }    
+
+    public function getBuildingQueue()
+    {
+        return $this->buildingQueueModel->getActiveQueue();
+    }    
 }

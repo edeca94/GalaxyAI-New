@@ -8,7 +8,10 @@ abstract class Core
 
     public function __construct()
     {
-        //$this->translator = new Translator($this->getUserLanguage());
+        if (!$this->translator)
+        {
+            $this->translator = new Translator($this->getUserLanguage());
+        }
     }
 
     protected function getUserLanguage(): string
